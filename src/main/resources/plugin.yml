@@ -1,0 +1,7 @@
+name: PricedTeleport
+version: ${project.version}
+main: de.endsmasher.pricedteleport.PricedTeleport
+api-version: 1.16
+prefix: PricedTeleport
+authors: [ Endsmasher ]
+website: https://www.endrealm.net
