@@ -14,9 +14,9 @@ public class UpdateLocationCommandAddon {
 
         if (locations == null) {
             player.sendMessage(PricedTeleport.PREFIX + "This Location does not exist");
-            return;
+        } else {
+            locations.setLocation(player.getLocation());
+            Bukkit.getPluginManager().callEvent(new ChangePositionDataEvent(player, locations));
         }
-        locations.setLocation(player.getLocation());
-        Bukkit.getPluginManager().callEvent(new ChangePositionDataEvent(player, locations));
     }
 }

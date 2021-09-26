@@ -57,7 +57,7 @@ public class LocationBaseCommand extends BasicCommand {
             case "name": {
                 if (args.length != 3) {
                     player.sendMessage(PricedTeleport.PREFIX + "Please do /ptp name <name> <newName>");
-                    return false;
+                    break;
                 }
                 var newName = args[2];
                 new UpdateNameCommandAddon(locationManager, player, name, newName);

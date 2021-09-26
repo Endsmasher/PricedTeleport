@@ -37,8 +37,9 @@ public class ListPriceAddon {
         });
         if (items.isEmpty()) {
             player.sendMessage(PricedTeleport.PREFIX + "No requirements have been set");
-        }
+        } else {
 
-        player.sendMessage(PricedTeleport.PREFIX + itemss.get());
+            player.sendMessage(PricedTeleport.PREFIX + itemss.get());
+        }
     }
 }

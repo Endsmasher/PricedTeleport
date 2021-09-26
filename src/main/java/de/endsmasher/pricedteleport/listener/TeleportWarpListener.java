@@ -2,6 +2,8 @@ package de.endsmasher.pricedteleport.listener;
 
 import de.endsmasher.pricedteleport.PricedTeleport;
 import de.endsmasher.pricedteleport.event.TeleportWarpEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -21,9 +23,17 @@ public class TeleportWarpListener implements Listener {
         if(!player.hasPermission("ptp.bypass")) {
             if (!navigator.getItemStacks().isEmpty()) {
                 for (ItemStack itemStack : navigator.getItemStacks()) {
+                    if (itemStack.getData() != null) {
+                        if (itemStack.getData().getItemType() == Material.PAPER) {
+                            if (itemStack.getItemMeta() == null) continue;
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), itemStack.getItemMeta().getDisplayName().replace("{player}", player.getName()));
+                            continue;
+                        }
+                    }
+
                     if (!player.getInventory().contains(itemStack)) {
                         player.sendMessage(PricedTeleport.PREFIX + "You don't meet the requirements");
-                        return;
+                        break;
                     }
                 }
                 for (ItemStack itemStack : navigator.getItemStacks()) {

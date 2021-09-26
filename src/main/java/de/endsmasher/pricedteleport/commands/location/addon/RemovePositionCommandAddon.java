@@ -15,9 +15,9 @@ public class RemovePositionCommandAddon {
 
         if (locationManager.get(name, true) == null) {
             player.sendMessage(PricedTeleport.PREFIX + "No position with this name is set");
+        } else {
+            locationManager.remove(name, true);
+            player.sendMessage(PricedTeleport.PREFIX + "Removed position");
         }
-        locationManager.remove(name, true);
-
-        player.sendMessage(PricedTeleport.PREFIX + "Removed position");
     }
 }

@@ -34,12 +34,12 @@ public class NavigatorBaseCommand extends BasicCommand {
         if (type.equals("price")) {
             if (!(args.length >= 2)) {
                 player.sendMessage(PricedTeleport.PREFIX + "Please do /warp price <name>");
-                return true;
+            } else {
+                new ListPriceAddon(locationManager, args[1], player);
             }
-            new ListPriceAddon(locationManager, args[1], player);
-            return true;
+        } else {
+            new TeleportCommandAddon(locationManager, player, args[0]);
         }
-        new TeleportCommandAddon(locationManager, player, args[0]);
         return true;
     }
 }

@@ -41,10 +41,6 @@ public class PlayerManager {
         players.remove(player);
     }
 
-    public void replace(PricedPlayer old, PricedPlayer newPlayer) {
-        players.set(getIndex(old), newPlayer);
-    }
-
     private int getIndex(PricedPlayer pricedPlayer) {
         return players.indexOf(pricedPlayer);
     }

@@ -16,9 +16,9 @@ public class UpdateNameCommandAddon {
         var locations = locationManager.get(name, true);
         if (locations == null) {
             player.sendMessage(PricedTeleport.PREFIX + "This Location does not exist");
-            return;
+        } else {
+            locations.setName(newName);
+            Bukkit.getPluginManager().callEvent(new ChangePositionDataEvent(player, locations));
         }
-        locations.setName(newName);
-        Bukkit.getPluginManager().callEvent(new ChangePositionDataEvent(player, locations));
     }
 }

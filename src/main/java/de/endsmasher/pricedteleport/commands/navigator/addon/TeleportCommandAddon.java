@@ -16,8 +16,8 @@ public class TeleportCommandAddon {
         var navigator = locationManager.get(name, true);
         if (navigator == null) {
             player.sendMessage(PricedTeleport.PREFIX + "Invalid location");
-            return;
+        } else {
+            Bukkit.getPluginManager().callEvent(new TeleportWarpEvent(player, navigator));
         }
-        Bukkit.getPluginManager().callEvent(new TeleportWarpEvent(player, navigator));
     }
 }

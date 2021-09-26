@@ -20,14 +20,14 @@ public class NavigatorListWarpsCommand extends BasicCommand {
         if (!sender.hasPermission("ptp.warps")) return false;
         if (!(sender instanceof Player)) {
             sender.sendMessage(PricedTeleport.PREFIX + "You are not a player");
-            return false;
-        }
-        var player = (Player) sender;
-        var string = String.valueOf(locationManager.getNameList())
-                .replace("[", "")
-                .replace("]", "");
+        } else {
+            var player = (Player) sender;
+            var string = String.valueOf(locationManager.getNameList())
+                    .replace("[", "")
+                    .replace("]", "");
 
-        player.sendMessage(PricedTeleport.PREFIX + "Available warps: " + string);
-        return false;
+            player.sendMessage(PricedTeleport.PREFIX + "Available warps: " + string);
+        }
+        return true;
     }
 }
