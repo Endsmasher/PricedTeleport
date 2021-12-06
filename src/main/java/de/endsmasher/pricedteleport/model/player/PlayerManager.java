@@ -41,10 +41,6 @@ public class PlayerManager {
         players.remove(player);
     }
 
-    private int getIndex(PricedPlayer pricedPlayer) {
-        return players.indexOf(pricedPlayer);
-    }
-
     public void removeInventory(UUID uuid) {
         get(uuid).setInventory(null);
     }

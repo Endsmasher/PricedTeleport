@@ -19,12 +19,14 @@ public class NavigatorBaseCommand extends BasicCommand {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
-        if (!sender.hasPermission("ptp.warp")) return false;
-        if (!(sender instanceof Player)) {
+        if (!sender.hasPermission("ptp.warp")) {
+            sender.sendMessage(PricedTeleport.PREFIX + "You do not have the permission to do this");
+            return false;
+        }
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(PricedTeleport.PREFIX + "You are not a player");
             return false;
         }
-        var player = (Player) sender;
 
         if (!(args.length >= 1)) {
             return false;

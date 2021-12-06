@@ -17,11 +17,13 @@ public class NavigatorListWarpsCommand extends BasicCommand {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
-        if (!sender.hasPermission("ptp.warps")) return false;
-        if (!(sender instanceof Player)) {
+        if (!sender.hasPermission("ptp.warps")) {
+            sender.sendMessage(PricedTeleport.PREFIX + "You do not have the permission to do this");
+            return false;
+        }
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(PricedTeleport.PREFIX + "You are not a player");
         } else {
-            var player = (Player) sender;
             var string = String.valueOf(locationManager.getNameList())
                     .replace("[", "")
                     .replace("]", "");

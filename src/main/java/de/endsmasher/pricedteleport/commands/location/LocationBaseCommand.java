@@ -21,14 +21,16 @@ public class LocationBaseCommand extends BasicCommand {
     private static final String[] subCommands = {"\n-> set",
             "\n-> name",
             "\n-> location",
-            "\n-> icon ",
             "\n-> items",
             "\n-> remove"};
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
-        if(!sender.hasPermission("ptp.admin")) return false;
-        if (!(sender instanceof Player)) {
+        if(!sender.hasPermission("ptp.admin")) {
+            sender.sendMessage(PricedTeleport.PREFIX + "You do not have the permission to do this");
+            return false;
+        }
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(PricedTeleport.PREFIX + "You are not a player");
             return false;
         }
@@ -45,36 +47,22 @@ public class LocationBaseCommand extends BasicCommand {
             return false;
         }
 
-        var player = (Player) sender;
         var type = args[0];
         var name = args[1];
 
         switch (type) {
-            case "set": {
-                new SetCommandAddon(locationManager, player, name);
-                break;
-            }
-            case "name": {
+            case "set" -> new SetCommandAddon(locationManager, player, name);
+            case "name" -> {
                 if (args.length != 3) {
                     player.sendMessage(PricedTeleport.PREFIX + "Please do /ptp name <name> <newName>");
                     break;
                 }
                 var newName = args[2];
                 new UpdateNameCommandAddon(locationManager, player, name, newName);
-                break;
             }
-            case "location": {
-                new UpdateLocationCommandAddon(locationManager, player, name);
-                break;
-            }
-            case "items": {
-                new UpdateItemsCommandAddon(locationManager, player, name);
-                break;
-            }
-            case "remove": {
-                new RemovePositionCommandAddon(locationManager, player, name);
-                break;
-            }
+            case "location" -> new UpdateLocationCommandAddon(locationManager, player, name);
+            case "items" -> new UpdateItemsCommandAddon(locationManager, player, name);
+            case "remove" -> new RemovePositionCommandAddon(locationManager, player, name);
         }
         return false;
     }

@@ -8,7 +8,6 @@ import de.endsmasher.pricedteleport.commands.navigator.NavigatorListWarpsCommand
 import de.endsmasher.pricedteleport.listener.*;
 import de.endsmasher.pricedteleport.model.location.LocationManager;
 import de.endsmasher.pricedteleport.model.player.PlayerManager;
-import de.endsmasher.pricedteleport.utils.ConfigHolder;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,8 +19,7 @@ public final class PricedTeleport extends JavaPlugin {
     private static PricedTeleport instance;
     public static PricedTeleport getInstance() {return instance;}
 
-    private ConfigHolder configHolder;
-    private LocationBackend locationBackend;
+     LocationBackend locationBackend;
     private LocationManager locationManager;
     private PlayerManager playerManager;
 
@@ -31,7 +29,6 @@ public final class PricedTeleport extends JavaPlugin {
         instance = this;
 
         locationBackend = new JsonLocationBackend();
-        configHolder = new ConfigHolder(this);
         locationManager = new LocationManager(locationBackend);
         playerManager = new PlayerManager();
 
@@ -55,10 +52,10 @@ public final class PricedTeleport extends JavaPlugin {
         pluginManager.registerEvents(new CloseInventoryListener(locationManager, playerManager), this);
         pluginManager.registerEvents(new PlayerJoinListener(playerManager), this);
         pluginManager.registerEvents(new PlayerDisconnectListener(playerManager), this);
+
     }
 
     private void loadPositions() {
         locationManager.setArrayList(locationBackend.load());
     }
-    public ConfigHolder getConfigHolder() {return configHolder;}
 }
