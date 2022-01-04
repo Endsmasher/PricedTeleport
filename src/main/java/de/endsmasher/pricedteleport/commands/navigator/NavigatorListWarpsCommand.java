@@ -2,17 +2,17 @@ package de.endsmasher.pricedteleport.commands.navigator;
 
 import de.endsmasher.pricedteleport.PricedTeleport;
 import de.endsmasher.pricedteleport.commands.BasicCommand;
-import de.endsmasher.pricedteleport.model.location.LocationManager;
+import de.endsmasher.pricedteleport.inventories.WarpListInventory;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class NavigatorListWarpsCommand extends BasicCommand {
 
-    private final LocationManager locationManager;
+    private final WarpListInventory warpListInventory;
 
-    public NavigatorListWarpsCommand(PricedTeleport main, LocationManager locationManager) {
+    public NavigatorListWarpsCommand(PricedTeleport main, WarpListInventory warpListInventory) {
         super(main, "warps");
-        this.locationManager = locationManager;
+        this.warpListInventory = warpListInventory;
     }
 
     @Override
@@ -24,11 +24,7 @@ public class NavigatorListWarpsCommand extends BasicCommand {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(PricedTeleport.PREFIX + "You are not a player");
         } else {
-            var string = String.valueOf(locationManager.getNameList())
-                    .replace("[", "")
-                    .replace("]", "");
-
-            player.sendMessage(PricedTeleport.PREFIX + "Available warps: " + string);
+            warpListInventory.openInv(player);
         }
         return true;
     }

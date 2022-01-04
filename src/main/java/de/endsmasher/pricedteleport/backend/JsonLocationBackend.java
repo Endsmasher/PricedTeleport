@@ -146,6 +146,7 @@ public class JsonLocationBackend implements LocationBackend {
         private String id;
         private String name;
         private LocationPojo location;
+        private ItemPojo icon;
         private List<ItemPojo> itemStack;
 
     }

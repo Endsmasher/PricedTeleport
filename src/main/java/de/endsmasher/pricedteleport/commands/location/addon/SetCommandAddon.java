@@ -9,18 +9,21 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class SetCommandAddon {
+public class SetCommandAddon extends CommandBase {
 
     /**
      * add a new warp
      */
 
-    public SetCommandAddon(LocationManager locationManager, Player player, String name) {
+    @Override
+    public void handle(LocationManager locationManager, Player player, String[] args) {
+        var name = args[1];
         var location = player.getLocation();
         var navigator = new NavigatorLocations(randomId(locationManager));
         navigator.setLocation(location);
         navigator.setName(name);
 
+        locationManager.save(navigator);
         Bukkit.getPluginManager().callEvent(new ChangePositionDataEvent(player, navigator));
     }
 

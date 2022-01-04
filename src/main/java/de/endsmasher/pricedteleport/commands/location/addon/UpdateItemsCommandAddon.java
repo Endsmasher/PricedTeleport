@@ -6,12 +6,15 @@ import de.endsmasher.pricedteleport.model.location.LocationManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class UpdateItemsCommandAddon {
+public class UpdateItemsCommandAddon extends CommandBase{
 
     /**
      * set items which are required to teleport to a specific warp
      */
-    public UpdateItemsCommandAddon(LocationManager locationManager, Player player, String name) {
+
+    @Override
+    public void handle(LocationManager locationManager, Player player, String[] args) {
+        var name = args[1];
         var locations = locationManager.get(name, true);
         if (locations == null) {
             player.sendMessage(PricedTeleport.PREFIX + "This position does not exist");

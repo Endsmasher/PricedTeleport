@@ -12,10 +12,12 @@ import java.util.Arrays;
 public class LocationBaseCommand extends BasicCommand {
 
     private final LocationManager locationManager;
+    private final AddonManager addonManager;
 
-    public LocationBaseCommand(PricedTeleport main, LocationManager locationManager) {
+    public LocationBaseCommand(PricedTeleport main, LocationManager locationManager, AddonManager addonManager) {
         super(main, "ptp");
         this.locationManager = locationManager;
+        this.addonManager = addonManager;
     }
 
     private static final String[] subCommands = {"\n-> set",
@@ -47,22 +49,15 @@ public class LocationBaseCommand extends BasicCommand {
             return false;
         }
 
-        var type = args[0];
-        var name = args[1];
+        if (args[0].equals("name") && args.length != 2) {
+            sender.sendMessage(PricedTeleport.PREFIX + "Please do /ptp name <name> <newName>");
+            return false;
+        }
 
-        switch (type) {
-            case "set" -> new SetCommandAddon(locationManager, player, name);
-            case "name" -> {
-                if (args.length != 3) {
-                    player.sendMessage(PricedTeleport.PREFIX + "Please do /ptp name <name> <newName>");
-                    break;
-                }
-                var newName = args[2];
-                new UpdateNameCommandAddon(locationManager, player, name, newName);
-            }
-            case "location" -> new UpdateLocationCommandAddon(locationManager, player, name);
-            case "items" -> new UpdateItemsCommandAddon(locationManager, player, name);
-            case "remove" -> new RemovePositionCommandAddon(locationManager, player, name);
+        try {
+            addonManager.get(args[0]).handle(locationManager, player, args);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            sender.sendMessage("You added to less or to much words");
         }
         return false;
     }
